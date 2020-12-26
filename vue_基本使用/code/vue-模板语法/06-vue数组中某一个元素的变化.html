@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>某一个元素的变化</title>
+		<script type="text/javascript" src="../js/vue.js"> </script>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<!-- 在vue中直接使用下标进行修改数组里面的值，修改后页面的元素是不会刷新的 -->
+				<!-- 可以使用Vue.set(修改的对象，对象对象的下标，修改的值) -->
+				<!-- 或者使用splict(修改下标的起点，修改下标的结尾，修改的值) -->
+				<li v-for="item,index in list" @click="change_list">
+					{{item}}
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let mv = new Vue({
+				el: '#box',
+				data: {
+					list: ['aaa', 'bbb', 'ccc'] // 在vue中创建一个数组
+				},
+				methods: {
+					change_list() {
+						// this.list[0] = 'abc' // 这样修改元素不会再页面进行渲染的
+						// Vue.set(this.list,0,'abc') // 可以修改成功
+						this.list.splice(0, 1, 'abc')
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

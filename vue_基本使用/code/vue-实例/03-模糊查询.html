@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>模糊查询</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="box">
+			<!-- @input 可以检测到用户每次输入的值 -->
+			<!-- @change 可以检测每次失去焦点后的值 -->
+			<input type="text" @input="search_data">
+			<ul>
+				<li v-for="item in data_list">
+					{{item}}
+				</li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			let mv = new Vue({
+				el: "#box",
+				data: {
+					data_list : ['aaa','bbb','ccc','ddd','eee','fff'],
+					new_datalist : ['aaa','bbb','ccc','ddd','eee','fff']
+				},
+				methods: {
+					search_data(evl) {
+						// 可以获取每次用户输入的值：evl.target.value
+						let val = evl.target.value
+						// 使用includes可以查看字符串是否包含某个字母，每个字符串里面都有空格
+						this.data_list = this.new_datalist.filter(item => item.includes(val))
+						
+				
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

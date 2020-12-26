@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>实例-购物车</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<style type="text/css">
+			li {
+				display: flex;
+				justify-content: space-around;
+				padding: 10px;
+			}
+
+			li img {
+				width: 10%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div v-if="list.length === 0">购物车空空如也</div>
+			<template v-else>
+				<label for="">全选/全不选</label>
+				<input type="checkbox" v-model="allCheck" @change="all_choise"> 
+				<ul>
+					<li v-for="item,index in list" :key=item.id>
+						<input type="checkbox" v-model="check_group" :value="item" @change="check"/>
+						<img :src="item.img_url">
+						<div>
+							<div>名称：{{item.name}}</div>
+							<div>价格:{{item.price}}</div>
+						</div>
+						<div>
+							<!-- disabled 当disable为true的时候这个按钮就不可以按了 -->
+							<button type="button" @click="item.number++" :disabled="item.number === item.limit">+</button>
+							{{item.number}}
+							<button type="button" @click="item.number--" :disabled="item.number === 1 ">-</button>
+						</div>
+						<div>
+							<button type="button" @click="delete_ele(index,item.id)">删除</button>
+						</div>
+					</li>
+				</ul>
+				<div style="background-color: red;">
+					总金额：<span>{{sum}} </span>
+				</div>
+			</template>
+		</div>
+
+		<script type="text/javascript">
+			let mv = new Vue({
+				el: '#box',
+				data: {
+					allCheck: false, // 是否全选
+					check_group: [], // 选中的所有商品
+					list: [{
+							id: 1,
+							name: "钢笔",
+							price: 10,
+							number: 10,
+							limit: 5,
+							img_url: 'https://gma.alicdn.com/bao/uploaded/i2/125438157/O1CN01AkA7QE2A7xM30pCwj_!!0-saturn_solar.jpg_230x230.jpg',
+						},
+						{
+							id: 2,
+							name: '钢笔2',
+							price: 20,
+							number: 20,
+							limit: 1,
+							img_url: 'https://gma.alicdn.com/bao/uploaded/i2/125438157/O1CN01AkA7QE2A7xM30pCwj_!!0-saturn_solar.jpg_230x230.jpg',
+						},
+						{
+							id: 3,
+							name: '钢笔3',
+							price: 30,
+							number: 30,
+							limit: 1,
+							img_url: 'https://gma.alicdn.com/bao/uploaded/i2/125438157/O1CN01AkA7QE2A7xM30pCwj_!!0-saturn_solar.jpg_230x230.jpg'
+						}
+					]
+				},
+				methods: {
+					delete_ele(index, shop_id) {
+						// 这个商品在列表里面的下标和这个
+						// 删除某个商品
+						// 通过下标删除这个商品
+						this.list.splice(index, 1);
+						console.log('------------')
+						// 在已选中的商品里面删除商品
+						// 因为使用filter会返回一个新的对象，所以我们需要进行覆盖
+						this.check_group = this.check_group.filter(item =>
+							// 在这里写判断条件
+							item.id !== shop_id
+						)
+						// 当我们删除后，查看是否全选商品
+						this.check()
+					},
+					all_choise () {
+						_this = this;
+						// 当这个元素的值发生了变化就回触发这个方法
+						if(_this.allCheck){
+							// 全选的状态
+							_this.check_group = this.list;
+						}else if(!_this.allCheck){
+							// 不是全选的状态
+							_this.check_group = []
+						}
+					},
+					check () {
+						console.log('aaaaaaaaaaa')
+						_this = this
+						// 当我们选择某个商品后，就进行检查是否全选了
+						if (_this.check_group.length === _this.list.length) {
+							// 全选的时候
+							_this.allCheck = true
+						} else {
+							console.l
+							_this.allCheck = false;
+						}
+					}
+				},
+				computed:{
+					sum() {
+						let total = 0; // 设置一个总金额
+					
+						this.check_group.forEach(item => {
+							total += item.price * item.number // 计算总金额
+						})
+						return total;
+					},
+				}
+			})
+		</script>
+	</body>
+</html>

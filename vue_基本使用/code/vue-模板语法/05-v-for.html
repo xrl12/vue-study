@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>v-for的用法</title>
+		<script type="text/javascript" src="../js/vue.js">
+			
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<!-- 遍历列表 -->
+			<ul >
+				<li v-for="item in list"><!-- 当这样写的时候，遍历出来的是列表中的每一个元素，没有下标 -->
+					{{item}}
+				</li>
+			</ul>
+			
+			<ul > <!-- 当这样写的时候，遍历出来的是列表中的每一个元素和对应的下标，-->
+				<li v-for="item,index in list">
+					{{item}},---下标{{index}}
+				</li>
+			</ul>
+			
+			<!-- 遍历对象 -->
+			 <ul>
+			 	<li v-for="value,key in obj_list">  <!-- 会把对象的key和value都遍历出来 -->
+			 		{{key}}---{{value}}
+			 	</li>
+			 </ul>
+			 
+			 <ul>
+				 <li v-for="value in obj_list">  <!-- 只会把对象的value遍历出来-->
+				 	{{value}}
+				 </li>
+			 </ul>
+			 
+			 <ul>
+				 <li v-for="value,key,index in obj_list">  <!-- 只会把对象的value,key和下标遍历出来-->
+					对象的值：{{value}}
+					对象的key：{{key}}
+					对象的索引: {{index}}
+				 </li>
+			 </ul>
+			 
+			 <ul>
+				 <li v-for="n in 10">
+					 {{n}}
+				 </li>
+			 </ul>
+		</div>
+		
+		
+		<script type="text/javascript">
+			let mv = new Vue({
+				el: '#box',
+				data: {
+					list: ['aaa','bbb','ccc'],
+					obj_list: {
+						"name" : "小明",
+						"age" : "20",
+						"location" : "Asia"
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

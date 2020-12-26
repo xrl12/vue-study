@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>函数表达式</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="box">
+			<input type="text" v-model="my_text"/>
+			<!-- 如果没有调用函数会展示native code，如果调用了回展示函数的返回值 -->
+			<!-- {{test_function}} -->
+			<!-- 如果双向绑定的值发生改变，那么和他绑定的函数也会发生变化 -->
+			<!-- {{test_function()}} -->
+			<ul>
+				<li v-for="item in test_function()">
+					{{item}}
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let mv = new Vue({
+				el: '#box',
+				data: {
+					data_list: ['aaa','bbb','ccc','ddd','eee','fff'],
+					my_text: ''
+				},
+				methods: {
+					test_function() {
+						return this.data_list.filter(item => item.includes(this.my_text))
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

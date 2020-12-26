@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>template元素</title>
+		<script type="text/javascript" src="../js/vue.js">
+			
+		</script>
+	</head>
+	<body>
+		<!-- template是一个包装元素，并不会真的出现在元素里面 -->
+		<!-- 业务需求：把三个div根据一个变量，同时出现，或者同时消失，不能改变当前的元素结构 -->
+		<div id="box">
+			<template v-if="is_create">
+				<div>111</div>
+				<div>222</div>
+				<div>333</div>
+			</template>
+		</div>
+		<script type="text/javascript">
+			let mv = new Vue({
+				el: "#box",
+				data: {
+					'is_create': false
+				}
+			})
+		</script>
+	</body>
+</html>

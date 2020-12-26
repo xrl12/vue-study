@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>动态添加数组</title>
+		<script type="text/javascript" src="../js/vue.js">
+			
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<!-- 当不在方法后面加（）的的时候，需要自己传参数，当不使用括号的时候，vue会自动给我们传一个参数 -->
+			<input type="text" v-model="my_input"> 
+			<button type="button" @click="add_data">添加</button>
+			<ul>
+				<li v-for="item,index in input_data">
+					{{item}}
+					<button type="button" @click="del_ele(index)">del</button>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			let mv = new Vue({
+				el: '#box',
+				data:{
+					'my_input' :'', // 用来存放用户在input里面输入的值
+					'input_data':[]
+				},
+				methods:{
+					add_data :function(){
+						this.input_data.push(this.my_input);
+						// 当每次点完添加后，把input里面的值清空
+						this.my_input = '';
+					},
+					del_ele (index) {
+						// this.input_data.pop() // 根据数组的位置，从后面开始删除
+						this.input_data.splice(index,1)
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

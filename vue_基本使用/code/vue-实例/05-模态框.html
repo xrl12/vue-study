@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>模态框</title>
+		<script type="text/javascript" src="../js/vue.js"> </script>
+		<style type="text/css">
+			.voerlay {
+				background-color: gray;
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0rem;
+				bottom: 0rem;
+				left: 0rem;
+				right: 0px;
+				/* opacity: 0.4;
+				filter: alpha(opacity=40); */
+			}
+
+			.center {
+
+				position: absolute;
+				/*垂直居中*/
+				top: 50%;
+				/*水平居中*/
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<!-- <button type="button" @click="is_show=true" >show</button> -->
+			<button type="button" @click.self="is_show=true" >show</button>
+			<div class="voerlay" v-show="is_show" @click="is_show=false">
+				<div class="center" @click.stop=""> 解决冒泡事件
+					<div id="">
+						用户名:<input type="text" />
+					</div>
+					<div>
+						密码:<input type="password" />
+					</div>
+					<div>
+						<button type="submit">提交</button>
+					</div>
+				</div>
+			</div> <!-- 遮罩层 -->
+
+		</div>
+		<script type="text/javascript">
+			let mv = new Vue({
+				el: '#box',
+				data: {
+					is_show: false
+				},
+				methods: {
+
+				}
+			})
+		</script>
+	</body>
+</html>

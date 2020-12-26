@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>修饰符</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="box">
+			<!-- 只有当失去焦点的时候，才会同步数据 -->
+			<input type="text" v-model.lazy="mytext"> {{mytext}}
+			<!-- 把字符串变成数字类型有两个前提条件 -->
+			<!-- 1·type=number ,2·当我们使用双向数据绑定的是使用number修饰符 -->
+			<input type="number" v-model.number="myage" @change="onblueMetaods">
+			<!-- 清除字符串左右两边的空格 -->
+			<input type="password" @blur="blurpasswd" v-model.trim="mypwd">
+			|{{mypwd}}|
+		</div>
+		<script type="text/javascript">
+			let mv = new Vue({
+				el: '#box',
+				data: {
+					mytext:'',
+					myage: 12,
+					mypwd: ''
+				},
+				methods:{
+					onblueMetaods () {
+						console.log(this.myage)
+					},
+					blurpasswd () {
+						console.log(this.mypwd)
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

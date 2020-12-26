@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue-minins</title>
+		<meta charset="UTF-8" />
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="box">
+			<button type="button" @click="handlerClick()">点我</button>
+		</div>
+		<script type="text/javascript">
+			const obj1 = {
+				methods: {
+					handlerClick() {
+						console.log('click')
+					},
+					handlerClick1() {
+						console.log('click')
+					}				},
+				computed: {
+					total() {
+						'111111'
+					}
+				}
+			}
+		</script>
+		<script type="text/javascript">
+			let vue = new Vue({
+				el: '#box',
+				data: {},
+				methods: {
+					handlerClick () {
+						console.log('aaaaaaaa')
+					}
+				},
+				mixins: [obj1] // 混入obj对象里面
+			})
+		</script>
+	</body>
+</html>

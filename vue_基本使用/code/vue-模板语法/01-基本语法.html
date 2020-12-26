@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue-模板语法</title>
+		<style type="text/css">
+			.red{
+				background-color: red;
+			}
+			.yellow{
+				background-color: yellow;
+			}
+		</style>
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="box">
+			{{myname}}
+			<!-- v-on指令：v-on:事件 绑定某个事件， -->
+			<button type="button" v-on:click="change"></button>
+			<!-- 缩写形式 -->
+			<button type="button" @click="change">v-on缩写形式</button>  <!-- 点击事件-->
+			
+			<div v-show="isshow">动态的隐藏或者显示</div>  <!-- 展示或者隐藏，true是显示，flase是隐藏-->
+			<button type="button" @click="showDiv">隐藏上面那的div</button>
+			
+			<!-- 条件渲染 -->
+			<div v-if="iscreate">我是动态的创建或者删除</div>
+			<button type="button" @click="changecreate">添加或者删除元素</button>
+			
+			<!-- v-bind 动态绑定 语法为：v-bind:元素里面的属性可以简写为:元素属性-->
+			<div v-bind:class="classname?'red':'yellow'">动态的切换背景色</div>
+			<!-- 缩写形式 -->
+			<div :class="classname?'red':'yellow'">v-bind缩写形式</div>
+			<button type="button" @click="changebackgroud">修改背景颜色</button>
+			
+			<!-- 指令 v-for 循环遍历数组 -->
+			<ul>
+				<li v-for="(value,index) in data_list">
+				 <span>这里是值:{{value}}</span>
+				 <span>这里是下标:{{index}}</span>
+				</li>
+				
+			</ul>
+			
+			<!-- v-model双向绑定 -->
+			<input type="text" v-model="mytext">
+			<input type="text" name="" id="" :value=mytext />
+			
+			<!-- v-html 允许浏览器解析变量 -->
+			<div v-html="my_html">{{my_html}}</div>
+			{{my_html}}
+		</div>
+		
+		
+		<script type="text/javascript">
+			// 在vue中 以v-开头的都是指令
+			let vm = new Vue({
+				el:"#box",
+				data:{
+					'myname':"abc",
+					'isshow':true,
+					'iscreate':true,
+					'classname':true,
+					'data_list':['abc','bcd','efg'],
+					'mytext':'',
+					'my_html':'<a href="https://www.baidu.com">百度</a>'
+				},
+				methods:{
+					change () {
+						// 这个方法可以简写为
+						// change:function(){
+						
+						// 	}
+						this.myname = 'bcd'
+					},
+					showDiv:function(){
+						this.isshow = !this.isshow;
+					},
+					changecreate:function(){
+						this.iscreate = !this.iscreate;
+					},
+					changebackgroud (){
+						this.classname = !this.classname
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>事件处理</title>
+		<script type="text/javascript" src="../js/vue.js">	</script>
+	</head>
+	<body>
+		<div id="box">
+			{{num}}
+			<button @click="add_Num">add_num</button>
+			<button @click="add_num2($event,2)">add_num2</button> 
+			<button @click="num++">直接写js代码</button>
+			
+			<!-- 解决冒泡行为 -->
+			<ul @click="ulclick">
+				<li @click.stop="liclick">aa</li>
+			</ul>
+			<!-- 阻止默认行为 -->
+			<a href="https://www.baidu.com" @click.prevent="">百度</a>
+			<!--@click.self 只有点击的对象是自己的时候才会触发点击事件，具体代码请看vue-实例中的模态框 -->
+			<!-- 只可以点击一次 -->
+			<button href="" @click.once="button_click">点我</button>
+			<!-- .passive  一般使用与手机端，告诉浏览器我没有阻止默认行为 -->
+			
+			<!-- 按键修饰符 -->
+			<!-- @keyup.键盘的状态码 -->
+			<!-- @keyup.常用的键盘名 -->
+			<input type="text" @keyup.enter.ctrl="anjian">
+		</div>
+		<script type="text/javascript">
+			let mv = new Vue({
+				el: '#box',
+				data: {
+					num: 1
+				},
+				methods: {
+					add_Num (evl) {
+						// 通过vue给传过来的事件对象
+						++this.num
+					},
+					add_num2 (evl,data){
+						console.log(evl)
+						this.num + data
+					},
+					ulclick (evl) {
+						
+						console.log('ulclick');
+					},
+					liclick (evl) {
+						// evl.stopPropagation() // 解决冒泡
+						console.log('li_click')
+					},
+					button_click () {
+						console.log('aaa')
+					},
+					anjian () {
+						console.log('点击')
+					}
+					
+				}
+			})
+		</script>
+	</body>
+</html>

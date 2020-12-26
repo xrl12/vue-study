@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>点击变色</title>
+		<script type="text/javascript" src="../js/vue.js">
+			
+		</script>
+		
+		<style type="text/css">
+			.a {
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li v-for="(item,index) in li_list" @click="change_background(index)" 
+				:class="currpage === index ? 'a':''">
+					{{item}}
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: '#box',
+				data:{
+					currpage: 0, // 点击li标签的下标
+					'li_list':['这是第一个','这是第二个','这是第三个'],
+					
+				},
+				methods:{
+					change_background (index) {
+						this.currpage = index
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
